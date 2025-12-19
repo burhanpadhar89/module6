@@ -1,0 +1,415 @@
+q1. Introduction to for andwhile loops
+🔁 What Is a Loop?
+
+A loop is a structure that lets a program repeat a set of instructions multiple times, either for a fixed number of times or until a certain condition is met.
+
+🔹 The for Loop
+➤ Purpose:
+
+A for loop is used when you know in advance how many times you want to repeat something — for example, iterating over a list, a range of numbers, or a sequence.
+
+➤ Syntax (Python Example):
+for variable in sequence:
+    # Code to execute repeatedly
+
+➤ Example 1: Counting from 1 to 5
+for i in range(1, 6):
+    print(i)
+
+
+Output:
+
+1
+2
+3
+4
+5
+
+
+Here:
+
+i takes each value from 1 to 5.
+
+The loop runs 5 times.
+
+➤ Example 2: Looping through a list
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)
+
+🔹 The while Loop
+➤ Purpose:
+
+A while loop is used when you don’t know in advance how many times you’ll need to loop — it continues as long as a condition remains true.
+
+➤ Syntax:
+while condition:
+    # Code to execute repeatedly
+
+➤ Example 1: Counting until a condition is false
+count = 1
+while count <= 5:
+    print(count)
+    count += 1
+
+
+Output:
+
+1
+2
+3
+4
+5
+
+
+Here:
+
+The loop keeps running while count <= 5.
+
+Once count becomes 6, the condition is false, and the loop stops.
+
+🔸 Key Differences Between for and while
+Feature	for loop	while loop
+Use case	When the number of iterations is known	When the number of iterations is unknown
+Structure	Iterates over a sequence (range, list, etc.)	Runs as long as a condition is True
+Common pitfall	—	Risk of infinite loops if the condition never becomes False
+🧠 Example Comparison
+# Using for loop
+for i in range(5):
+    print("Hello")
+
+# Using while loop
+count = 0
+while count < 5:
+    print("Hello")
+    count += 1
+
+
+Both print "Hello" 5 times — but they use different logic to do so.
+
+____________________________________________________________________________________________________________________________________________________________________
+
+q2. HowloopsworkinPython.
+
+🔁 What Is a Loop?
+
+A loop lets your Python program repeat a block of code multiple times, either:
+
+For a fixed number of times, or
+
+Until a certain condition is met.
+
+Python has two main types of loops:
+
+for loop
+
+while loop
+
+🔹 1. for Loop — Iteration Over a Sequence
+➤ How It Works:
+
+A for loop in Python iterates (goes through) each element in a sequence — such as a list, tuple, string, or range() of numbers.
+
+➤ Syntax:
+for variable in sequence:
+    # Code block to run for each item
+
+➤ Step-by-Step Example:
+for num in range(1, 4):
+    print("Number:", num)
+
+
+How Python executes this:
+
+range(1, 4) generates the numbers 1, 2, 3.
+
+Python sets num = 1 and runs the code inside the loop.
+
+Then num = 2, runs the code again.
+
+Then num = 3, runs it again.
+
+When the sequence is over, the loop stops automatically.
+
+Output:
+
+Number: 1
+Number: 2
+Number: 3
+
+➤ Looping Through a List:
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)
+
+
+Output:
+
+apple
+banana
+cherry
+
+🔹 2. while Loop — Repetition Based on a Condition
+➤ How It Works:
+
+A while loop keeps running as long as its condition is True.
+When the condition becomes False, Python stops the loop.
+
+➤ Syntax:
+while condition:
+    # Code block to repeat
+
+➤ Step-by-Step Example:
+count = 1
+while count <= 3:
+    print("Count is:", count)
+    count += 1
+
+
+How Python executes this:
+
+Checks if count <= 3. (At first, count = 1, so True)
+
+Runs the loop body → prints Count is: 1.
+
+Increases count to 2 → condition still True.
+
+Runs again → prints Count is: 2.
+
+Increases count to 3 → still True.
+
+Prints Count is: 3.
+
+Increases count to 4 → condition now False → loop stops.
+
+Output:
+
+Count is: 1
+Count is: 2
+Count is: 3
+
+⚠️ Important Concepts
+🔸 Infinite Loops
+
+If a while loop’s condition never becomes False, the loop will never stop.
+
+while True:
+    print("This runs forever!")  # ⚠️ Infinite loop
+
+
+You can stop it manually by pressing Ctrl + C.
+
+🔸 break Statement
+
+Used to exit a loop early.
+
+for i in range(10):
+    if i == 5:
+        break
+    print(i)
+
+
+Output: 0 1 2 3 4
+
+🔸 continue Statement
+
+Skips the rest of the loop body and goes to the next iteration.
+
+for i in range(5):
+    if i == 2:
+        continue
+    print(i)
+
+
+Output: 0 1 3 4 (2 is skipped)
+
+🔸 else with Loops
+
+In Python, you can even add an else clause to a loop — it runs only if the loop wasn’t stopped with break.
+
+for i in range(3):
+    print(i)
+else:
+    print("Loop finished!")
+
+
+Output:
+
+0
+1
+2
+Loop finished!
+
+🧠 Summary
+Feature	for loop	while loop
+Purpose	Repeats over each element in a sequence	Repeats while a condition is true
+Stops When	Sequence is exhausted	Condition becomes false
+Best for	Known number of iterations	Unknown number of iterations
+____________________________________________________________________________________________________________________________________________________________________
+
+q3. Usingloopswithcollections (lists, tuples, etc.).
+🔹 What Are Collections?
+
+Collections are data structures that store multiple items together.
+In Python, the most common ones are:
+
+Collection Type	Example	Description
+List	[1, 2, 3]	Ordered, changeable (mutable)
+Tuple	(1, 2, 3)	Ordered, unchangeable (immutable)
+Set	{1, 2, 3}	Unordered, no duplicates
+Dictionary	{'a': 1, 'b': 2}	Key–value pairs
+🔁 Why Use Loops with Collections?
+
+Loops allow you to go through each element in a collection one by one, so you can:
+
+Access or process each item
+
+Perform calculations
+
+Modify elements (for lists)
+
+Search for specific values
+
+🔸 Using for Loops with Collections
+
+The for loop is the most common way to iterate through collections in Python.
+
+🧩 Example 1: Looping Through a List
+fruits = ["apple", "banana", "cherry"]
+
+for fruit in fruits:
+    print(fruit)
+
+
+Output:
+
+apple
+banana
+cherry
+
+
+👉 Each item in the list is assigned to fruit in turn.
+
+🧩 Example 2: Looping Through a Tuple
+colors = ("red", "green", "blue")
+
+for color in colors:
+    print(color)
+
+
+Output:
+
+red
+green
+blue
+
+
+Tuples work just like lists in loops — the only difference is that you can’t modify them.
+
+🧩 Example 3: Looping Through a Set
+numbers = {1, 2, 3, 4}
+
+for n in numbers:
+    print(n)
+
+
+Output (order may vary):
+
+1
+2
+3
+4
+
+
+👉 Sets are unordered, so the items might appear in a different order each time.
+
+🧩 Example 4: Looping Through a Dictionary
+student = {"name": "Alice", "age": 20, "grade": "A"}
+
+# Loop through keys
+for key in student:
+    print(key)
+
+
+Output:
+
+name
+age
+grade
+
+
+You can also loop through values or key–value pairs:
+
+# Loop through values
+for value in student.values():
+    print(value)
+
+# Loop through key-value pairs
+for key, value in student.items():
+    print(key, ":", value)
+
+
+Output:
+
+name : Alice
+age : 20
+grade : A
+
+🔸 Using while Loops with Collections
+
+A while loop doesn’t automatically go through a collection —
+you usually use an index to access items.
+
+🧩 Example:
+numbers = [10, 20, 30, 40]
+i = 0
+
+while i < len(numbers):
+    print(numbers[i])
+    i += 1
+
+
+Output:
+
+10
+20
+30
+40
+
+
+Here:
+
+len(numbers) gives the number of items.
+
+We manually increase i each time to move through the list.
+
+🔸 Bonus: Nested Loops with Collections
+
+You can even use loops inside other loops to work with multi-dimensional data (like lists of lists).
+
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+for row in matrix:
+    for item in row:
+        print(item, end=" ")
+    print()
+
+
+Output:
+
+1 2 3 
+4 5 6 
+7 8 9
+
+🧠 Summary
+Collection	Loop Example	Notes
+List	for item in list:	Ordered, changeable
+Tuple	for item in tuple:	Ordered, unchangeable
+Set	for item in set:	Unordered, no duplicates
+Dictionary	for key, value in dict.items():	Key–value pairs
+While Loop	Use while with an index	Manual control of iteration
+____________________________________________________________________________________________________________________________________________________________________

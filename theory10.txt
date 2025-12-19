@@ -1,0 +1,299 @@
+q1.How functional programming works in Python
+🌿 1. Key Concepts of Functional Programming (FP)
+✅ 1.1 Functions are first-class objects
+
+You can:
+
+Assign functions to variables
+
+Pass them as arguments
+
+Return them from other functions
+
+Example:
+def greet(name):
+    return f"Hello {name}"
+
+say_hello = greet    # assigning function
+print(say_hello("Python"))
+
+✅ 1.2 Pure Functions
+
+A pure function:
+
+Depends ONLY on input arguments
+
+Has no side effects (doesn’t modify global variables, files, lists, etc.)
+
+Example:
+def add(x, y):
+    return x + y
+
+
+This function is “pure” because it always produces the same result for the same input.
+
+✅ 1.3 Immutability
+
+Functional programming prefers data that cannot be changed.
+
+Python doesn’t enforce immutability, but you can write code in an immutable style:
+
+Example (mutable ❌):
+lst = [1, 2, 3]
+lst.append(4)
+
+Example (immutable ✓):
+lst = [1, 2, 3]
+new_lst = lst + [4]
+
+🔁 2. Built-in Functional Tools in Python
+
+Python supports FP using:
+
+✔ map() – Apply a function to each element
+nums = [1, 2, 3, 4]
+result = list(map(lambda x: x*x, nums))
+print(result)
+
+
+Output:
+
+[1, 4, 9, 16]
+
+✔ filter() – Keep only elements that match a condition
+nums = [1, 2, 3, 4, 5]
+result = list(filter(lambda x: x % 2 == 0, nums))
+print(result)
+
+
+Output:
+
+[2, 4]
+
+✔ reduce() (from functools) – Reduce data into a single value
+from functools import reduce
+
+nums = [1, 2, 3, 4]
+total = reduce(lambda x, y: x + y, nums)
+print(total)
+
+
+Output:
+
+10
+
+✔ lambda Functions (anonymous functions)
+square = lambda n: n*n
+print(square(5))
+
+🧩 3. Higher-Order Functions
+
+Functions that take other functions as arguments or return them.
+
+Example:
+def apply(func, value):
+    return func(value)
+
+print(apply(lambda x: x + 10, 5))
+
+🧼 4. List Comprehensions (Functional Style)
+
+Python uses list comprehensions that behave like FP's map and filter.
+
+nums = [1, 2, 3, 4, 5]
+squares = [x*x for x in nums]
+even = [x for x in nums if x % 2 == 0]
+
+🧠 5. Why Use Functional Programming?
+Feature	Benefit
+Pure functions	Easier testing
+No side effects	More predictable
+Immutability	Fewer bugs
+Higher-order functions	Cleaner, shorter code
+
+______________________________________________________________________________________________________________________________________________________________
+q2.Usingmap(),reduce(), andfilter() functions for processing data
+🔷 1. map() – Apply a Function to All Items
+✔ Purpose:
+
+Transforms each element in an iterable (list, tuple, etc.).
+
+✔ Syntax:
+map(function, iterable)
+
+✔ Example: Square each number
+numbers = [1, 2, 3, 4, 5]
+
+squared = list(map(lambda x: x*x, numbers))
+
+print(squared)
+
+
+Output:
+
+[1, 4, 9, 16, 25]
+
+🔶 2. filter() – Filter Out Unwanted Items
+✔ Purpose:
+
+Keeps only the elements that satisfy a condition.
+
+✔ Syntax:
+filter(function, iterable)
+
+✔ Example: Keep only even numbers
+numbers = [1, 2, 3, 4, 5, 6]
+
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+
+print(evens)
+
+
+Output:
+
+[2, 4, 6]
+
+🔷 3. reduce() – Reduce Elements to a Single Value
+
+reduce() is not built-in in Python; it comes from functools.
+
+✔ Purpose:
+
+Repeatedly applies a function to elements, reducing them to one result.
+
+✔ Syntax:
+from functools import reduce
+reduce(function, iterable)
+
+✔ Example: Sum all numbers
+from functools import reduce
+
+numbers = [1, 2, 3, 4]
+
+total = reduce(lambda x, y: x + y, numbers)
+
+print(total)
+
+
+Output:
+
+10
+______________________________________________________________________________________________________________________________________________________________
+
+q3. Introduction to closures and decorators
+🔹 1. Closures in Python
+
+A closure is a function that remembers the environment in which it was created, even if that environment is no longer in scope.
+In simpler terms: a function defined inside another function can “remember” variables from the outer function.
+
+Key Points
+
+Defined inside another function
+
+Can access variables of the outer function
+
+Outer variables are retained even after the outer function has finished
+
+Example of Closure
+def outer_function(msg):
+    def inner_function():
+        print("Message:", msg)
+    return inner_function  # returning inner function
+
+my_func = outer_function("Hello Closure")
+my_func()  # calling inner function
+
+
+Output:
+
+Message: Hello Closure
+
+
+Explanation:
+
+inner_function remembers msg from outer_function even though outer_function has finished executing.
+
+Another Example
+def multiplier(n):
+    def multiply(x):
+        return x * n
+    return multiply
+
+double = multiplier(2)
+triple = multiplier(3)
+
+print(double(5))  # 10
+print(triple(5))  # 15
+
+
+Here, double and triple remember the value of n passed to multiplier.
+
+🔹 2. Decorators in Python
+
+A decorator is a function that modifies the behavior of another function.
+Decorators are built on closures.
+
+Key Points
+
+Use @decorator_name syntax
+
+Takes a function as input, returns a new function
+
+Commonly used for logging, authentication, performance measurement, etc.
+
+Basic Decorator Example
+def decorator(func):
+    def wrapper():
+        print("Before function call")
+        func()
+        print("After function call")
+    return wrapper
+
+@decorator
+def say_hello():
+    print("Hello!")
+
+say_hello()
+
+
+Output:
+
+Before function call
+Hello!
+After function call
+
+
+Explanation:
+
+say_hello is “wrapped” by the decorator
+
+Wrapper adds behavior before and after the original function
+
+Decorator with Arguments
+def decorator(func):
+    def wrapper(name):
+        print(f"Hello, {name}!")
+        func(name)
+        print("Goodbye!")
+    return wrapper
+
+@decorator
+def greet(name):
+    print(f"How are you, {name}?")
+
+greet("Alice")
+
+
+Output:
+
+Hello, Alice!
+How are you, Alice?
+Goodbye!
+
+🔹 3. Summary Table
+Concept	Description	Key Feature
+Closure	Function remembers outer variables	Inner function “remembers” values from outer function
+Decorator	Function that modifies another function	Uses closures to “wrap” behavior around a function
+______________________________________________________________________________________________________________________________________________________________
+
+

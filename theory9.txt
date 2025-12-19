@@ -1,0 +1,273 @@
+q1. Understandinghowtoaccess and manipulate strings
+🧵 1. Accessing Characters in a String
+
+You can access individual characters using indexing (positions).
+
+✔ Indexing (positive index)
+text = "Python"
+print(text[0])   # P
+print(text[3])   # h
+
+✔ Negative Indexing (from the end)
+text = "Python"
+print(text[-1])  # n
+print(text[-3])  # h
+
+🔁 2. Slicing Strings
+
+Slicing lets you extract parts of a string using:
+
+string[start:end:step]
+
+Examples
+text = "Hello World"
+
+print(text[0:5])   # Hello
+print(text[6:])    # World
+print(text[:5])    # Hello
+print(text[::2])   # HloWrd  (every second character)
+
+🔧 3. Common String Methods (Manipulation)
+
+Python strings have many built-in methods. Here are the most important ones:
+
+✔ Change case
+text = "hello"
+print(text.upper())    # HELLO
+print(text.capitalize())  # Hello
+print(text.title())       # Hello World
+
+✔ Remove whitespace
+name = "  Alice  "
+print(name.strip())   # Alice
+
+✔ Find length
+len("Python")   # 6
+
+✔ Replace text
+text = "I like bananas"
+print(text.replace("bananas", "apples"))
+
+✔ Count occurrences
+text = "banana"
+print(text.count("a"))   # 3
+
+✔ Find position
+text = "Hello"
+print(text.find("l"))  # 2
+
+🔗 4. Concatenation (Joining Strings)
+first = "Hello"
+second = "World"
+print(first + " " + second)  # Hello World
+
+🔄 5. Repeating Strings
+print("Hi! " * 3)
+
+
+Output:
+
+Hi! Hi! Hi!
+
+🔍 6. Checking Substrings
+text = "Python programming"
+
+print("Python" in text)   # True
+print("Java" in text)     # False
+
+📝 7. Splitting and Joining Strings
+✔ Split (string → list)
+text = "apple,banana,mango"
+print(text.split(","))  
+# ['apple', 'banana', 'mango']
+
+✔ Join (list → string)
+fruits = ['apple', 'banana', 'mango']
+print(",".join(fruits))
+# apple,banana,mango
+
+🧩 8. String Immutability
+
+Strings in Python are immutable, meaning you cannot change a character directly.
+
+❌ Not allowed:
+
+text[0] = "J"
+
+
+✔ Correct way (create a new string):
+
+text = "Python"
+text = "J" + text[1:]
+print(text)
+_____________________________________________________________________________________________________________________________________
+
+q2.Basicoperations: concatenation, repetition, string methods (upper(), lower(), etc.)
+🔗 1. Concatenation (Joining Strings)
+
+Use the + operator to join strings.
+
+Example:
+s1 = "Hello"
+s2 = "World"
+result = s1 + " " + s2
+print(result)
+
+Output:
+Hello World
+
+🔁 2. Repetition (Repeating Strings)
+
+Use the * operator to repeat a string multiple times.
+
+Example:
+text = "Hi! "
+print(text * 3)
+
+Output:
+Hi! Hi! Hi! 
+
+🔧 3. Useful String Methods
+✔ Convert to uppercase
+text = "hello"
+print(text.upper())    # HELLO
+
+✔ Convert to lowercase
+text = "PYTHON"
+print(text.lower())    # python
+
+✔ Capitalize first letter
+text = "python programming"
+print(text.capitalize())   # Python programming
+
+✔ Title case (capitalize each word)
+text = "python programming"
+print(text.title())   # Python Programming
+
+✔ Strip whitespace
+text = "  hello  "
+print(text.strip())   # "hello"
+
+✔ Replace text
+text = "I like apples"
+print(text.replace("apples", "mangoes"))
+
+✔ Count occurrences
+text = "banana"
+print(text.count("a"))   # 3
+
+✔ Find position of a substring
+text = "Hello"
+print(text.find("l"))  # 2
+
+✔ Check if a string starts or ends with something
+text = "hello"
+print(text.startswith("he"))  # True
+print(text.endswith("lo"))    # True
+_____________________________________________________________________________________________________________________________________
+q3.Stringslicing.
+🧩 Basic Slicing Syntax
+string[start : end : step]
+
+
+start → index to begin (inclusive)
+
+end → index to stop (exclusive)
+
+step → how many characters to skip
+
+All parts are optional.
+
+📘 Examples of String Slicing
+
+Let’s use:
+
+text = "Hello World"
+
+✅ 1. Slice from index 0 to 4
+print(text[0:5])
+
+
+Output:
+
+Hello
+
+✅ 2. Slice from index 6 to the end
+print(text[6:])
+
+
+Output:
+
+World
+
+✅ 3. Slice from start until index 4
+print(text[:5])
+
+
+Output:
+
+Hello
+
+✅ 4. Slice the whole string
+print(text[:])
+
+
+Output:
+
+Hello World
+
+🔄 5. Slicing with Step
+✔ Every 2nd character:
+print(text[::2])
+
+
+Output:
+
+HloWrd
+
+✔ Every 3rd character:
+print(text[::3])
+
+
+Output:
+
+HlWl
+
+↩️ 6. Negative Index Slicing
+
+Python allows negative indexing from the end.
+
+✔ Last 5 characters:
+print(text[-5:])
+
+
+Output:
+
+World
+
+✔ Reverse the string:
+print(text[::-1])
+
+
+Output:
+
+dlroW olleH
+
+🔁 7. Slicing with Negative Step
+✔ Reverse every second character:
+print(text[::-2])
+
+
+Output:
+
+drWolH
+
+✔️ 8. Extract a substring in the middle
+print(text[3:8])
+
+
+Output:
+
+lo Wo
+_____________________________________________________________________________________________________________________________________
+

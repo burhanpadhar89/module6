@@ -1,0 +1,489 @@
+q1. Understandingdata types: integers, floats, strings, lists, tuples, dictionaries, sets.
+
+🧮 1. Integers (int)
+
+Whole numbers (positive, negative, or zero).
+
+No decimal points.
+
+✅ Examples:
+
+age = 25
+year = 2025
+temperature = -5
+
+
+🔹 You can perform arithmetic operations:
+
+result = age + 5    # 30
+product = 4 * 3     # 12
+
+🌡️ 2. Floating-Point Numbers (float)
+
+Numbers with decimal points.
+
+Used for measurements, averages, or divisions that yield fractions.
+
+✅ Examples:
+
+pi = 3.14159
+height = 1.75
+balance = -250.50
+
+
+🔹 Operations:
+
+average = (4.5 + 3.5) / 2   # 4.0
+
+🔤 3. Strings (str)
+
+A sequence of characters enclosed in quotes.
+
+Used for text.
+
+✅ Examples:
+
+name = "Alice"
+message = 'Hello, world!'
+
+
+🔹 Strings can be concatenated and sliced:
+
+greeting = "Hello, " + name   # "Hello, Alice"
+print(name[0])                # 'A'
+print(name[-1])               # 'e'
+
+
+🔹 Multi-line strings:
+
+paragraph = """This is
+a multi-line
+string."""
+
+📜 4. Lists (list)
+
+Ordered, mutable (changeable) collections.
+
+Can hold mixed data types.
+
+✅ Examples:
+
+fruits = ["apple", "banana", "cherry"]
+numbers = [10, 20, 30, 40]
+mixed = [1, "two", 3.0, True]
+
+
+🔹 Access and modify:
+
+print(fruits[0])        # "apple"
+fruits.append("mango")  # Adds an element
+fruits[1] = "orange"    # Modifies an element
+
+🪶 5. Tuples (tuple)
+
+Ordered, immutable (cannot be changed after creation).
+
+Used for fixed collections of items.
+
+✅ Examples:
+
+coordinates = (10.5, 20.3)
+colors = ("red", "green", "blue")
+
+
+🔹 Access elements:
+
+print(coordinates[0])  # 10.5
+
+
+🔹 Tuples are often used to represent structured data that shouldn’t change, like coordinates or RGB values.
+
+🗂️ 6. Dictionaries (dict)
+
+Unordered collections of key–value pairs.
+
+Keys are unique and usually strings.
+
+✅ Examples:
+
+student = {
+    "name": "Alice",
+    "age": 20,
+    "major": "Computer Science"
+}
+
+
+🔹 Access and modify:
+
+print(student["name"])         # "Alice"
+student["age"] = 21            # Update value
+student["grade"] = "A"         # Add new key-value pair
+
+🔣 7. Sets (set)
+
+Unordered collections of unique items.
+
+Automatically removes duplicates.
+
+✅ Examples:
+
+numbers = {1, 2, 3, 3, 4}
+print(numbers)   # {1, 2, 3, 4}
+
+
+🔹 Set operations:
+
+a = {1, 2, 3}
+b = {3, 4, 5}
+
+print(a | b)   # Union → {1, 2, 3, 4, 5}
+print(a & b)   # Intersection → {3}
+print(a - b)   # Difference → {1, 2}
+
+🧠 Quick Comparison Table
+Data Type	Ordered	Mutable	Allows Duplicates	Example
+int	N/A	N/A	N/A	10
+float	N/A	N/A	N/A	3.14
+str	✅	❌	✅	"hello"
+list	✅	✅	✅	[1, 2, 3]
+tuple	✅	❌	✅	(1, 2, 3)
+dict	❌ (keys unordered)	✅	Keys must be unique	{"a": 1, "b": 2}
+set	❌	✅	❌	{1, 2, 3}
+🧩 Example Program — Using All Data Types
+# Integers and floats
+age = 25
+height = 1.75
+
+# String
+name = "Alice"
+
+# List
+hobbies = ["reading", "cycling", "coding"]
+
+# Tuple
+birth_date = (2000, 5, 15)
+
+# Dictionary
+profile = {
+    "name": name,
+    "age": age,
+    "height": height,
+    "hobbies": hobbies
+}
+
+# Set
+unique_hobbies = set(hobbies)
+
+print(f"Name: {profile['name']}")
+print(f"Age: {profile['age']}")
+print(f"Hobbies: {', '.join(profile['hobbies'])}")
+print(f"Unique hobbies: {unique_hobbies}")
+
+____________________________________________________________________________________________________________________________________________________-
+
+
+q2. Pythonvariables and memory allocation.
+🧩 1. What Is a Variable?
+
+A variable is a name that refers to a value stored in memory.
+In Python, variables are references (labels), not actual boxes holding data like in some other languages (e.g., C or Java).
+
+✅ Example:
+
+x = 10
+
+
+x is a variable name (a label).
+
+10 is an integer object stored somewhere in memory.
+
+x points (or refers) to that memory location.
+
+🧠 2. How Memory Allocation Works
+
+When you assign a value to a variable:
+
+Python creates an object in memory (if it doesn’t already exist).
+
+The variable name refers to (points to) that object.
+
+Example:
+a = 5
+b = a
+
+
+Here’s what happens:
+
+Python creates an integer object 5 in memory.
+
+a refers to that object.
+
+When you write b = a, both a and b point to the same memory location.
+
+🧩 Memory diagram:
+
+a ──► [ 5 ]
+b ──┘
+
+
+If you later change a:
+
+a = 10
+
+
+Python creates a new object (10) in memory, and now a points to it — but b still points to 5.
+
+a ──► [ 10 ]
+b ──► [ 5 ]
+
+⚙️ 3. Mutable vs Immutable Objects
+
+This concept is crucial for understanding how memory behaves.
+
+Type	Mutable?	Examples
+Immutable	❌ No (cannot change value in place)	int, float, str, tuple
+Mutable	✅ Yes (can change value in place)	list, dict, set
+Example — Immutable (Integers):
+x = 5
+y = x
+x = x + 1
+
+print(x)  # 6
+print(y)  # 5
+
+
+🔹 A new object 6 is created; x now refers to it.
+🔹 y still points to 5.
+
+Example — Mutable (Lists):
+list1 = [1, 2, 3]
+list2 = list1
+list1.append(4)
+
+print(list1)  # [1, 2, 3, 4]
+print(list2)  # [1, 2, 3, 4]
+
+
+🔹 Both list1 and list2 refer to the same list object in memory, so modifying one affects the other.
+
+🧮 4. Memory Management in Python
+
+Python uses automatic memory management, mainly through:
+
+Reference counting (keeps track of how many variables reference an object).
+
+Garbage collection (frees memory when no references exist).
+
+Example:
+x = [1, 2, 3]
+y = x
+del x  # removes one reference
+
+# The list still exists because 'y' points to it
+print(y)  # [1, 2, 3]
+
+del y  # removes the last reference
+# Now, the list is garbage-collected automatically
+
+🧠 5. The id() Function
+
+You can use id() to check the memory address of an object.
+
+a = 100
+b = 100
+print(id(a), id(b))  # Same id (Python caches small integers)
+
+x = [1, 2, 3]
+y = [1, 2, 3]
+print(id(x), id(y))  # Different ids (new list objects)
+
+🔍 6. Python’s Object Caching (Interpreted Optimization)
+
+Python interns (reuses) some immutable objects for efficiency:
+
+Small integers (from -5 to 256)
+
+Some short strings
+
+That’s why:
+
+a = 100
+b = 100
+print(a is b)  # True (same memory)
+
+
+But:
+
+a = 1000
+b = 1000
+print(a is b)  # False (different memory locations)
+
+🧩 7. Summary Table
+Concept	Description	Example
+Variable	Name referring to an object in memory	x = 10
+Immutable Object	Value can’t change; reassignment creates a new object	int, str, tuple
+Mutable Object	Value can be changed in place	list, dict, set
+Reference Counting	Python tracks how many variables point to an object	del decreases count
+Garbage Collection	Frees memory when no references remain	Automatic process
+id()	Returns memory address of an object	id(x)
+✅ Example Program (Putting It All Together)
+# Demonstrating Python variables and memory allocation
+
+# Immutable example
+x = 10
+y = x
+print("Before change:", x, y)
+x = 20  # new object created
+print("After change:", x, y)
+
+print("x id:", id(x))
+print("y id:", id(y))  # different id
+
+# Mutable example
+list1 = [1, 2, 3]
+list2 = list1
+list1.append(4)
+
+print("\nList1:", list1)
+print("List2:", list2)
+print("Same object:", id(list1) == id(list2))
+
+
+Output:
+
+Before change: 10 10
+After change: 20 10
+x id: 140705405943600
+y id: 140705405943280
+
+List1: [1, 2, 3, 4]
+List2: [1, 2, 3, 4]
+Same object: True
+____________________________________________________________________________________________________________________________________________________
+
+q3. Pythonoperators: arithmetic, comparison, logical, bitwise
+🧮 1. Arithmetic Operators
+
+Used to perform mathematical calculations between numeric values (int or float).
+
+Operator	Description	Example	Result
++	Addition	5 + 3	8
+-	Subtraction	10 - 4	6
+*	Multiplication	7 * 3	21
+/	Division (float result)	10 / 4	2.5
+//	Floor Division (integer result)	10 // 4	2
+%	Modulus (remainder)	10 % 4	2
+**	Exponentiation (power)	2 ** 3	8
+
+✅ Example:
+
+a = 10
+b = 3
+
+print(a + b)   # 13
+print(a - b)   # 7
+print(a * b)   # 30
+print(a / b)   # 3.333...
+print(a // b)  # 3
+print(a % b)   # 1
+print(a ** b)  # 1000
+
+⚖️ 2. Comparison (Relational) Operators
+
+Used to compare two values — results are Boolean (True or False).
+
+Operator	Description	Example	Result
+==	Equal to	5 == 5	True
+!=	Not equal to	5 != 3	True
+>	Greater than	7 > 5	True
+<	Less than	2 < 4	True
+>=	Greater than or equal to	5 >= 5	True
+<=	Less than or equal to	3 <= 2	False
+
+✅ Example:
+
+x = 10
+y = 20
+
+print(x == y)  # False
+print(x != y)  # True
+print(x > y)   # False
+print(x < y)   # True
+print(x >= 10) # True
+print(y <= 15) # False
+
+🧠 3. Logical Operators
+
+Used to combine conditional statements — evaluate expressions that return True or False.
+
+Operator	Description	Example	Result
+and	True if both operands are True	(x > 5 and x < 15)	True
+or	True if either operand is True	(x > 15 or y > 15)	True
+not	Reverses the result	not(x > 5)	False
+
+✅ Example:
+
+x = 10
+y = 20
+
+print(x > 5 and y > 15)  # True
+print(x > 15 or y > 15)  # True
+print(not (x > 5))       # False
+
+⚙️ 4. Bitwise Operators
+
+Used to perform operations on binary (bit) representations of integers.
+
+Operator	Description	Example	Result (Binary)	Result (Decimal)
+&	Bitwise AND	5 & 3	0101 & 0011 = 0001	1
+`	`	Bitwise OR	`5	3`
+^	Bitwise XOR	5 ^ 3	0101 ^ 0011 = 0110	6
+~	Bitwise NOT	~5	~0101 = -(0101 + 1)	-6
+<<	Left shift	5 << 1	0101 → 1010	10
+>>	Right shift	5 >> 1	0101 → 0010	2
+
+✅ Example:
+
+a = 5   # (binary 0101)
+b = 3   # (binary 0011)
+
+print(a & b)   # 1
+print(a | b)   # 7
+print(a ^ b)   # 6
+print(~a)      # -6
+print(a << 1)  # 10
+print(a >> 1)  # 2
+
+🧩 Summary Table
+Category	Operator Examples	Description
+Arithmetic	+, -, *, /, %, //, **	Perform math operations
+Comparison	==, !=, >, <, >=, <=	Compare values (return True/False)
+Logical	and, or, not	Combine or invert Boolean expressions
+Bitwise	&, `	, ^, ~, <<, >>`
+✅ Example Program — All Operators in Action
+# Arithmetic operators
+a, b = 10, 3
+print("Arithmetic:")
+print(a + b, a - b, a * b, a / b, a // b, a % b, a ** b)
+
+# Comparison operators
+print("\nComparison:")
+print(a == b, a != b, a > b, a < b, a >= b, a <= b)
+
+# Logical operators
+print("\nLogical:")
+print(a > 5 and b < 5)
+print(a < 5 or b == 3)
+print(not (a > 5))
+
+# Bitwise operators
+print("\nBitwise:")
+print(a & b)   # AND
+print(a | b)   # OR
+print(a ^ b)   # XOR
+print(~a)      # NOT
+print(a << 1)  # Left shift
+print(a >> 1)  # Right shift)
+____________________________________________________________________________________________________________________________________________________
+
+

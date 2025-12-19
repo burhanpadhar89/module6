@@ -1,0 +1,481 @@
+q1. Understandinghowgenerators work in Python
+1. Generators vs. Regular Functions
+
+A regular function:
+
+runs entirely when called
+
+returns a single value using return
+
+ends execution immediately after returning
+
+A generator function:
+
+contains the keyword yield, not just return
+
+pauses at each yield, sending a value back
+
+remembers its internal state (local variables, instruction pointer)
+
+can be resumed from where it left off
+
+2. What Happens When You Call a Generator Function?
+
+When you call a generator function:
+
+def gen():
+    yield 1
+    yield 2
+
+
+Calling:
+
+g = gen()
+
+
+does NOT run the function.
+Instead, it returns a generator object — a special iterator.
+
+Execution only starts when you request a value, e.g.:
+
+next(g)
+
+3. How yield Works at the Theoretical Level
+
+Each time the generator reaches a yield:
+
+It produces a value to the caller
+
+It pauses execution
+
+It saves its internal state
+
+When next() is called again:
+
+execution resumes right after the yield
+
+using the saved variable values
+
+Think of it like a "frozen function" that can be thawed and resumed.
+
+4. Generators Are a Type of Iterator
+
+Generators automatically implement:
+
+__iter__() → returns itself
+
+__next__() → runs until the next yield
+
+So a generator is an iterator, but easier to write.
+
+5. Why Use Generators? (Theory Perspective)
+
+Theoretical advantages:
+
+1. Laziness
+
+Values are produced on demand, not precomputed.
+
+2. Efficiency
+
+They save memory because they don't store the entire sequence.
+
+3. Infinite sequences
+
+A generator can represent something like:
+
+def naturals():
+    n = 0
+    while True:
+        yield n
+        n += 1
+
+
+Impossible with lists — but trivial with generators.
+
+4. Model of computation
+
+Generators embody the idea of:
+
+coroutines (lightweight cooperative execution)
+
+state machines
+
+continuations (paused execution state)
+
+They are essentially functions with resumable state.
+
+6. Under the Hood (Light Theory, Not Implementation)
+
+Conceptually, a generator can be thought of as:
+
+a function + a saved execution state
+
+holding:
+
+current instruction position
+
+local variable values
+
+the value to be yielded next
+
+Each next():
+
+advances the internal instruction pointer
+
+executes until the next yield
+
+When the function ends, Python raises:
+
+StopIteration → signals no more values
+
+7. Generator Expressions (Theory)
+
+A generator expression:
+
+(x*x for x in range(10))
+
+
+is a lazy version of a list comprehension.
+
+It creates a generator object that computes values one at a time.
+
+✔ Summary (In Pure Theory Terms)
+
+Python generators are:
+
+stateful, resumable functions
+
+that produce a sequence of values over time
+
+via lazy evaluation
+
+by suspending and resuming execution with yield
+
+forming a special type of iterator and coroutine-like mechanism
+_______________________________________________________________________________________________________________________
+
+q2.✅ Difference Between yield and return
+🔹 1. What They Do
+return
+
+Ends the function immediately.
+
+Sends a single final value back.
+
+After return, the function cannot continue.
+
+yield
+
+Sends a value back without ending the function.
+
+Pauses the function and saves its state.
+
+Allows the function to continue from where it left off on the next call.
+
+Can produce a sequence of values over time.
+
+🔹 2. Number of Values Produced
+return
+
+→ Produces one value and stops.
+
+yield
+
+→ Produces many values (one per yield), across multiple pauses.
+
+🔹 3. Type of Function Created
+return
+
+→ Normal function.
+
+yield
+
+→ Turns the function into a generator function that returns a generator object.
+
+🔹 4. Execution Behavior
+return
+
+Function executes linearly → hits return → exits permanently
+
+yield
+
+Function executes → hits yield → pauses
+→ resumes later → continues → yields again
+
+🔹 5. Memory Usage
+return
+
+Usually stores all data in memory before returning.
+
+yield
+
+Does lazy evaluation — produces one value at a time → saves memory.
+
+🔹 6. Errors
+return inside generator
+
+return value raises StopIteration(value), signaling end of generator.
+
+yield
+
+Never ends the generator; simply pauses.
+
+✔ Short Summary
+Feature	return	yield
+Ends function?	Yes	No
+Produces	One value	Many values
+Behavior	Stop	Pause & resume
+Creates	Normal function	Generator function
+Memory	Eager (all data)	Lazy (one item at a time)
+✔ Example Comparison
+Using return:
+def f():
+    return 1
+    return 2  # never reached
+
+
+Output:
+
+1
+
+Using yield:
+def g():
+    yield 1
+    yield 2
+
+
+Output:
+
+gen = g()
+next(gen)  # 1
+next(gen)  # 2
+
+
+Function continues from where it paused.
+_______________________________________________________________________________________________________________________
+
+q3.Understandingiterators and creating custom iterators.
+
+✅ 1. What Is an Iterator (Conceptually)?
+
+An iterator is an object that:
+
+Produces items one at a time
+
+Remembers its current position
+
+Knows how to get the next item
+
+In mathematical or theoretical terms,
+an iterator is a state machine that moves through a sequence step by step.
+
+✅ 2. Formal Requirements of an Iterator
+
+An iterator in Python must implement:
+
+1. __iter__()
+
+Returns the iterator object itself.
+
+Allows the object to be used inside for loops or iter().
+
+2. __next__()
+
+Returns the next value in the sequence.
+
+Raises StopIteration when no more values remain.
+
+This protocol is called the iterator protocol.
+
+✅ 3. How Iterators Work Internally
+
+When you write:
+
+for x in iterable:
+    ...
+
+
+Python does this internally:
+
+iterator = iter(iterable)   # calls iterable.__iter__()
+while True:
+    try:
+        value = next(iterator)  # calls iterator.__next__()
+        ...
+    except StopIteration:
+        break
+
+
+An iterator therefore must:
+
+keep some internal state
+
+update the state on each call to __next__()
+
+return the next value
+
+✅ 4. Example: Creating a Custom Iterator
+
+Let’s make a simple iterator that counts from 1 to 5.
+
+Step 1 — create a class
+class CountToFive:
+    def __init__(self):
+        self.num = 1
+
+Step 2 — make it an iterator
+
+Implement __iter__() and __next__():
+
+class CountToFive:
+    def __init__(self):
+        self.num = 1
+
+    def __iter__(self):
+        return me  # this object itself is the iterator
+
+    def __next__(self):
+        if self.num > 5:
+            raise StopIteration
+        value = self.num
+        self.num += 1
+        return value
+
+Using it:
+for i in CountToFive():
+    print(i)
+
+
+Output:
+
+1
+2
+3
+4
+5
+
+✅ 5. Another Example: Even Number Iterator
+class EvenNumbers:
+    def __init__(self, limit):
+        self.limit = limit
+        self.current = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.current > self.limit:
+            raise StopIteration
+        value = self.current
+        self.current += 2
+        return value
+
+
+Usage:
+
+for n in EvenNumbers(10):
+    print(n)
+
+
+Output:
+
+0
+2
+4
+6
+8
+10
+
+✅ 6. Infinite Iterators
+
+You can create iterators that never stop (unless manually broken), like:
+
+class InfiniteNaturals:
+    def __init__(self):
+        self.n = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.n += 1
+        return self.n
+
+
+This is how Python's itertools.count() works internally.
+
+🔥 7. Custom Iterator vs Generator
+
+Generators are simpler ways to create iterators.
+
+Custom Iterator (manual)
+
+Must write a class
+
+Must manage state
+
+Must raise StopIteration
+
+Generator (automatic)
+
+Just write:
+
+def count_to_five():
+    for i in range(1, 6):
+        yield i
+
+
+Python automatically handles:
+✓ creating the iterator
+✓ saving state
+✓ raising StopIteration
+
+Generators = lazy, automatic iterators
+
+🎯 8. When to Use Custom Iterators
+
+Use a custom iterator if:
+
+You need complex state management
+
+You want a reusable, object-oriented design
+
+You need interoperation with other OOP structures
+
+You want fine control over iteration behavior
+
+Use generators if:
+
+You just need sequential values
+
+The logic is simple
+
+You prefer concise code
+
+✔ Summary
+Iterator
+
+Any object with __iter__() and __next__()
+
+Produces values one at a time
+
+Raises StopIteration when finished
+
+Custom iterator
+
+Write a class
+
+Store internal state
+
+Increment state in each __next__()
+
+Generators
+
+A simpler way to write iterators
+
+Use yield
+
+Automatically maintain state
+_________________________________________________________________________________________________________________________________
+

@@ -1,0 +1,115 @@
+q1.Introduction to conditional statements: if, else, elif.
+
+🧱 1. What Are Conditional Statements?
+
+Conditional statements allow a program to make decisions based on certain conditions.
+
+Syntax in Python:
+
+if condition:
+    # code to execute if condition is True
+elif another_condition:
+    # code to execute if the first condition is False but another_condition is True
+else:
+    # code to execute if all above conditions are False
+
+
+Conditions usually involve comparison operators (==, !=, >, <, >=, <=) or logical operators (and, or, not).
+
+⚙️ 2. Practical Example — Using if, elif, and else
+"""
+Program: Demonstrate conditional statements in Python
+Author: ChatGPT (Example)
+Description:
+    This program asks the user for their age and gives feedback
+    using if, elif, and else statements.
+"""
+
+# Take input from the user
+age = int(input("Enter your age: "))
+
+# Conditional statements
+if age < 13:
+    print("You are a child.")
+elif 13 <= age < 20:
+    print("You are a teenager.")
+elif 20 <= age < 60:
+    print("You are an adult.")
+else:
+    print("You are a senior.")
+
+🧩 3. Sample Output
+Enter your age: 10
+You are a child.
+
+Enter your age: 16
+You are a teenager.
+
+Enter your age: 35
+You are an adult.
+
+Enter your age: 70
+You are a senior.
+
+🧠 4. Key Points
+
+if: Checks a condition first; executes block if True.
+
+elif (else if): Checks another condition if the previous if was False.
+
+else: Executes when all previous conditions are False.
+
+Indentation matters: Python uses indentation to define blocks. Forgetting it causes errors.
+
+Comparison and logical operators are often used in conditions.
+
+# Example with logical operators
+x = 10
+if x > 5 and x < 15:
+    print("x is between 5 and 15")
+___________________________________________________________________________________________________________________________________
+
+q2. Nestedif-elseconditions.
+
+Nested if-else Conditions in Python
+1. Definition
+
+A nested if-else condition occurs when an if or else statement is placed inside another if or else block. It allows you to check multiple levels of conditions, enabling more complex decision-making in your programs.
+
+Structure:
+
+
+
+2. Key features:
+
+Multiple Decision Levels: Nested if-else allows checking conditions inside other conditions.
+
+Indentation Matters: Each nested block must be indented properly; otherwise, Python will raise an error.
+
+Combination with elif: You can use elif statements inside nested conditions for more clarity.
+
+Complex Logic Handling: Helps when a single condition check is not enough to determine the outcome.
+
+
+Explanation:
+
+First, the program checks if the score is 50 or more.
+
+If True, it enters the nested block to check for specific grades.
+
+If False, it executes the else block and declares a failing grade.
+
+3. Advantages
+
+Makes code capable of handling complex decision scenarios.
+
+Allows step-by-step evaluation of conditions.
+
+Useful for grading systems, eligibility checks, menu-driven programs, and more.
+
+4. Things to Keep in Mind
+
+Avoid too many nested levels; it can make code hard to read.
+
+You can simplify deeply nested conditions using logical operators (and, or) or by using functions.
+

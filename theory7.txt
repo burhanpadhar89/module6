@@ -1,0 +1,453 @@
+q1. Defining andcalling functions in Python.
+✅ 1. What Is a Function in Python?
+
+A function is a reusable block of code that performs a specific task.
+
+Python functions:
+
+help organize code
+
+avoid repetition
+
+make programs easier to read and maintain
+
+✅ 2. Defining a Function
+
+You define a function using the def keyword.
+
+Syntax:
+def function_name(parameters):
+    # function body
+    return value
+
+Example:
+def greet():
+    print("Hello!")
+
+
+Here:
+
+def starts the function definition
+
+greet is the function name
+
+() means the function takes no parameters
+
+The body is indented
+
+No return means the function returns None
+
+✅ 3. Calling (Using) a Function
+
+Once defined, call the function using:
+
+function_name()
+
+Example:
+greet()
+
+
+Output:
+
+Hello!
+
+✅ 4. Functions With Parameters
+
+Parameters allow you to pass data into a function.
+
+def greet(name):
+    print("Hello,", name)
+
+
+Calling:
+
+greet("Alice")
+
+
+Output:
+
+Hello, Alice
+
+✅ 5. Functions With Return Values
+
+Use return when you want the function to produce a value.
+
+def add(a, b):
+    return a + b
+
+
+Calling:
+
+result = add(3, 5)
+print(result)
+
+
+Output:
+
+8
+
+
+return ends the function immediately and sends the value back.
+
+✅ 6. Default Parameter Values
+
+You can give parameters default values:
+
+def greet(name="Guest"):
+    print("Hello,", name)
+
+
+Now it works with or without arguments:
+
+greet()           # Hello, Guest
+greet("John")     # Hello, John
+
+✅ 7. Functions With Multiple Returns
+
+Python allows returning multiple values (using tuples implicitly):
+
+def stats(a, b):
+    return a + b, a * b
+
+s, p = stats(3, 4)
+
+✅ 8. Keyword Arguments
+
+Call functions using parameter names:
+
+def introduce(name, age):
+    print(name, "is", age, "years old")
+
+introduce(age=20, name="Sarah")
+
+✅ 9. Variable-Length Arguments
+*args → many positional arguments
+def sum_all(*args):
+    return sum(args)
+
+print(sum_all(1, 2, 3, 4))
+
+**kwargs → many keyword arguments
+def describe(**kwargs):
+    print(kwargs)
+
+describe(name="John", age=30)
+
+📌 Summary
+Concept	Description
+def	Defines a function
+Calling a function	function_name()
+Parameters	Inputs to the function
+Return	Output value
+Default values	Optional parameters
+*args	Unlimited positional args
+**kwargs	Unlimited keyword args
+_________________________________________________________________________________________________________________
+q2 Functionarguments (positional, keyword, default).
+✅ 1. Positional Arguments
+
+These are the most common type of arguments.
+Their values are assigned based on their position in the function call.
+
+Example
+def add(a, b):
+    return a + b
+
+result = add(3, 5)  # 3 goes to a, 5 goes to b
+
+
+✔ Order matters
+✔ Must be passed in the correct sequence
+
+✅ 2. Keyword Arguments
+
+Keyword arguments are passed by name instead of position.
+
+Example
+def introduce(name, age):
+    print(name, "is", age, "years old")
+
+introduce(age=20, name="Alice")
+
+
+✔ Order does NOT matter
+✔ You specify which parameter gets which value
+
+✅ 3. Default Arguments
+
+Default arguments provide a default value if the caller does not specify one.
+
+Example:
+def greet(name="Guest"):
+    print("Hello,", name)
+
+
+Calling:
+
+greet()         # Uses default "Guest"
+greet("John")   # Overrides default
+
+
+✔ Useful for optional arguments
+✔ Must come after non-default arguments in the function definition
+
+📌 Summary Table
+Type of Argument	How It's Assigned	Order Required?	Example
+Positional	By position	✔ Yes	add(2, 3)
+Keyword	By name	✖ No	add(b=3, a=2)
+Default	Uses default if not provided	✔ Only before keywords	greet(), greet("Bob")
+_________________________________________________________________________________________________________________
+q3.✅ Scope of Variables in Python
+
+Scope refers to the region of a program where a variable is recognized and can be used.
+
+Python uses the LEGB Rule to determine variable scope:
+
+L → Local
+E → Enclosing
+G → Global
+B → Built-in
+
+Let's break these down.
+
+🔹 1. Local Scope (L)
+
+A local variable is defined inside a function and can only be accessed there.
+
+def func():
+    x = 10  # local variable
+    print(x)
+
+func()
+print(x)  # ❌ Error: x is not defined outside the function
+
+
+✔ Exists only inside the function
+✔ Created when the function is called
+✔ Destroyed when the function exits
+
+🔹 2. Enclosing Scope (E)
+
+Variables in the outer function of a nested function.
+
+def outer():
+    y = 20  # enclosing variable
+
+    def inner():
+        print(y)  # accessible inside nested function
+
+    inner()
+
+outer()
+
+
+✔ Used in nested functions
+✔ Not the local scope or global scope
+✔ Also called nonlocal scope
+
+You can modify an enclosing variable using nonlocal:
+
+def outer():
+    x = 5
+    def inner():
+        nonlocal x
+        x = 10
+    inner()
+    print(x)  # 10
+
+🔹 3. Global Scope (G)
+
+A global variable is defined outside all functions and can be accessed anywhere in the file.
+
+x = 100  # global variable
+
+def show():
+    print(x)
+
+show()
+print(x)
+
+Modifying a global variable inside a function:
+
+Use the global keyword:
+
+x = 10
+
+def modify():
+    global x
+    x = 20
+
+modify()
+print(x)  # 20
+
+🔹 4. Built-in Scope (B)
+
+Variables that come from Python's standard library.
+
+Examples:
+
+print()
+len()
+range()
+
+
+These names exist in Python’s built-in namespace, always available unless redefined.
+
+🔁 LEGB Rule Summary
+
+When Python sees a variable, it searches in this order:
+
+Local → inside current function
+
+Enclosing → in outer function(s)
+
+Global → defined at top level of file
+
+Built-in → Python-provided names
+
+Example:
+
+x = "global"
+
+def outer():
+    x = "enclosing"
+    def inner():
+        x = "local"
+        print(x)
+    inner()
+
+outer()
+
+
+Output:
+
+local
+
+
+Python picks the first match in the LEGB order.
+
+📌 Final Summary
+Scope	Where defined	Accessible where?
+Local	Inside a function	Only in that function
+Enclosing	Outer function of nested functions	Inner functions
+Global	Top-level of the script	Entire module
+Built-in	Python built-ins	Everywhere
+_________________________________________________________________________________________________________________
+q4. Built-in methods for strings, lists, etc
+✅ 1. Built-in String Methods
+
+Commonly used string operations:
+
+🔹 Case Methods
+s.lower()
+s.upper()
+s.title()
+s.capitalize()
+s.swapcase()
+
+🔹 Search & Check
+s.find("a")        # returns index or -1
+s.index("a")       # returns index or error
+s.startswith("Hi")
+s.endswith("bye")
+s.isalpha()
+s.isdigit()
+s.isalnum()
+s.isspace()
+
+🔹 Modify or Replace
+s.replace("old", "new")
+s.strip()          # removes whitespace from both ends
+s.lstrip()
+s.rstrip()
+
+🔹 Split & Join
+s.split(",")
+" ".join(["a", "b", "c"])
+
+🔹 Formatting
+s.format(name="Alice")
+s.zfill(5)         # pads zeros: "00042"
+
+✅ 2. Built-in List Methods
+
+Lists are mutable and have many useful methods.
+
+🔹 Add Elements
+lst.append(x)
+lst.insert(index, x)
+lst.extend([1,2,3])
+
+🔹 Remove Elements
+lst.remove(x)      # removes first occurrence
+lst.pop()          # removes last item
+lst.pop(index)
+lst.clear()
+
+🔹 Search & Sort
+lst.index(x)
+lst.count(x)
+lst.sort()
+lst.reverse()
+
+🔹 Copy
+lst.copy()
+
+✅ 3. Tuple Methods (Very Few)
+
+Tuples are immutable, so they have only two methods:
+
+t.count(x)
+t.index(x)
+
+✅ 4. Dictionary Methods
+
+Dictionaries store key–value pairs.
+
+🔹 Add / Update
+d[key] = value
+d.update({"a": 1})
+
+🔹 Remove
+d.pop(key)
+d.popitem()    # removes last key-value pair
+d.clear()
+
+🔹 Access
+d.get(key)
+d.keys()
+d.values()
+d.items()
+
+🔹 Create Copies
+d.copy()
+
+✅ 5. Set Methods
+
+Sets store unique, unordered items.
+
+🔹 Add & Remove
+s.add(x)
+s.remove(x)
+s.discard(x)   # no error if x not found
+s.pop()        # removes an arbitrary element
+
+🔹 Mathematical Set Operations
+s.union(t)
+s.intersection(t)
+s.difference(t)
+s.symmetric_difference(t)
+
+🔹 Updates
+s.update([1,2])
+s.intersection_update(t)
+s.difference_update(t)
+
+📌 Quick Reference Summary
+Type	Common Methods
+String	lower(), upper(), find(), replace(), split(), join(), strip()
+List	append(), extend(), remove(), pop(), sort(), reverse()
+Tuple	count(), index()
+Dictionary	get(), keys(), values(), items(), update(), pop()
+Set	add(), remove(), union(), intersection()
+________________________________________________________________________________________________________________________________
